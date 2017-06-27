@@ -3,6 +3,7 @@ package de.uni_muenster.wi.md2library.model.dataStore.implementation;
 import de.uni_muenster.wi.md2library.controller.interfaces.Md2Controller;
 import de.uni_muenster.wi.md2library.model.dataStore.interfaces.Md2LocalDataStoreFactory;
 import de.uni_muenster.wi.md2library.model.dataStore.interfaces.Md2LocalStore;
+import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Entity;
 
 /**
  * {@inheritDoc}
@@ -14,7 +15,7 @@ import de.uni_muenster.wi.md2library.model.dataStore.interfaces.Md2LocalStore;
  * @version 1.0
  * @since 1.0
  */
-public class Md2LocalStoreFactory extends AbstractMd2DataStoreFactory implements Md2LocalDataStoreFactory {
+public abstract class AbstractMd2LocalStoreFactory extends AbstractMd2DataStoreFactory implements Md2LocalDataStoreFactory {
     /**
      * The controller of a MD2 application.
      */
@@ -30,7 +31,7 @@ public class Md2LocalStoreFactory extends AbstractMd2DataStoreFactory implements
      *
      * @param controller the controller
      */
-    public Md2LocalStoreFactory(Md2Controller controller) {
+    public AbstractMd2LocalStoreFactory(Md2Controller controller) {
         this(controller, null);
     }
 
@@ -40,7 +41,7 @@ public class Md2LocalStoreFactory extends AbstractMd2DataStoreFactory implements
      * @param controller                the controller
      * @param fullyQualifiedFactoryName the fully qualified factory name
      */
-    public Md2LocalStoreFactory(Md2Controller controller, String fullyQualifiedFactoryName) {
+    public AbstractMd2LocalStoreFactory(Md2Controller controller, String fullyQualifiedFactoryName) {
         this.controller = controller;
         this.fullyQualifiedFactoryName = fullyQualifiedFactoryName;
     }
@@ -53,16 +54,16 @@ public class Md2LocalStoreFactory extends AbstractMd2DataStoreFactory implements
      * @param entity the name of the entity managed by the content provider the data store is associated with
      */
     @Override
-    public Md2LocalStore getDataStore(String entity) {
-        if (fullyQualifiedFactoryName == null || fullyQualifiedFactoryName.isEmpty())
+    public abstract <T extends Md2Entity> Md2LocalStore<T > getDataStore(String entity); //{
+     /*   if (fullyQualifiedFactoryName == null || fullyQualifiedFactoryName.isEmpty())
             return new Md2SQLiteDataStore(controller.getMd2SQLiteHelper());
 
         try {
-            Md2LocalStoreFactory factory = (Md2LocalStoreFactory) Class.forName(fullyQualifiedFactoryName).newInstance();
+            AbstractMd2LocalStoreFactory factory = (AbstractMd2LocalStoreFactory) Class.forName(fullyQualifiedFactoryName).newInstance();
             Md2LocalStore localStore = factory.getDataStore(entity);
             return (localStore != null) ? localStore : new Md2SQLiteDataStore(controller.getMd2SQLiteHelper());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException e) {
             return new Md2SQLiteDataStore(controller.getMd2SQLiteHelper());
-        }
-    }
+      }  */
+   // }
 }

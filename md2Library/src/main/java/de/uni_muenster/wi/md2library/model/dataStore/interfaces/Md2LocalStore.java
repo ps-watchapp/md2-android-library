@@ -1,5 +1,7 @@
 package de.uni_muenster.wi.md2library.model.dataStore.interfaces;
 
+import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Entity;
+
 /**
  * Interface definition for a local data store.
  * <p/>
@@ -9,6 +11,6 @@ package de.uni_muenster.wi.md2library.model.dataStore.interfaces;
  * @version 1.0
  * @since 1.0
  */
-public interface Md2LocalStore extends Md2DataStore {
+public interface Md2LocalStore<T extends Md2Entity> extends Md2DataStore<T> {
 
 }

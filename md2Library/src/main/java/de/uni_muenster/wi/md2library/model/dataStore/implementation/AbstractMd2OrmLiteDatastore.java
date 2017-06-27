@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import de.uni_muenster.wi.md2library.model.dataStore.interfaces.Md2LocalStore;
 import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Entity;
 
 /**
@@ -16,7 +17,7 @@ import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Entity;
  */
 
 
-public abstract class AbstractMd2OrmLiteDatastore<T extends  Md2Entity> extends AbstractMd2DataStore<T> {
+public abstract class AbstractMd2OrmLiteDatastore<T extends  Md2Entity> implements Md2LocalStore<T>{
 
 
     Dao<T , Integer> myDao;

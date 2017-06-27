@@ -23,15 +23,10 @@ public class Md2ContentProviderSetTask implements Md2CustomCodeTask {
 
     @Override
     public void execute() throws Md2WidgetNotCreatedException {
-if(source instanceof  Md2ContentProvider){
-
-
-}
-else if(source instanceof Md2MultiContentProvider){
 
 }
     }
 
 
 
-}
+

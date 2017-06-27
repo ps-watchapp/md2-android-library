@@ -95,5 +95,12 @@ public void load(){
 	}
 
 
+	public void remove(long id, Md2Entity entity){
+	dataStore.remove(id,entity);
+	}
+
+
+
+	public void remove(){}
 }
 

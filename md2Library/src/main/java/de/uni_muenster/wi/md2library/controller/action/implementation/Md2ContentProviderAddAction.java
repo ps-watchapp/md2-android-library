@@ -30,7 +30,8 @@ public class Md2ContentProviderAddAction extends AbstractMd2Action {
         if(Md2ContentProviderRegistry.getInstance().getContentProvider(contentProviderSource)!=null) {
             AbstractMd2ContentProvider cps = (AbstractMd2ContentProvider) Md2ContentProviderRegistry.getInstance().getContentProvider(contentProviderSource);
             cp.add(cps.getContent());
-            cps.newEntity();}
+            cps.newEntity();
+            cps.notfiyOnChangeHandlers();}
         //in MD2 ContentProviderSource nicht als MultiContentProvider vorgesehen, daher wird der else Fall aktuell niemals ausgeführt werden
         else if (Md2ContentProviderRegistry.getInstance().getContentMultiProvider(contentProviderSource)!=null){
             Md2MultiContentProvider cps =  Md2ContentProviderRegistry.getInstance().getContentMultiProvider(contentProviderSource);

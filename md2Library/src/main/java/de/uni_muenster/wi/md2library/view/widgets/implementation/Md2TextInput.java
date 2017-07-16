@@ -119,11 +119,12 @@ public class Md2TextInput extends EditText implements Md2Content {
         }
 
         // set cursor in correct position --> otherwise always in the beginning
-        int cursorPosition = super.getSelectionEnd();
+        //int cursorPosition = super.getSelectionEnd();
+        //Auskommentiert: Andernfalls setSpan-Fehlermeldungen beim Setzen des Values
 
         if (!super.getText().toString().equals(value.toString())) {
             super.setText(value.toString());
-            super.setSelection(cursorPosition);
+            //super.setSelection(cursorPosition);
         }
     }
 

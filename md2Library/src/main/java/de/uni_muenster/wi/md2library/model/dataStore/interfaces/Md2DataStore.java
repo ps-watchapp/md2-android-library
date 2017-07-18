@@ -1,7 +1,5 @@
 package de.uni_muenster.wi.md2library.model.dataStore.interfaces;
 
-import java.util.HashMap;
-
 import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Entity;
 
 /**
@@ -13,7 +11,7 @@ import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Entity;
  * @version 1.0
  * @since 1.0
  */
-public  interface  Md2DataStore<T extends Md2Entity > {
+public interface Md2DataStore {
 
     /**
      * Execute query in data store.
@@ -21,7 +19,7 @@ public  interface  Md2DataStore<T extends Md2Entity > {
      * @param query the query
      * @return the md 2 entity
      */
-    Md2Entity query(String query);
+    void query(String query);
 
     /**
      * Try to get internal id. I.e., look for entity in database that has the same values as the entity.
@@ -29,7 +27,7 @@ public  interface  Md2DataStore<T extends Md2Entity > {
      * @param entity the entity
      * @return the internal id
      */
-      long  getInternalId(T entity);
+    void getInternalId(Md2Entity entity);
 
     /**
      * Load entity.
@@ -38,7 +36,7 @@ public  interface  Md2DataStore<T extends Md2Entity > {
      * @param dataType the data type
      * @return the hash map
      */
-    HashMap<String, String> load(long id, String dataType);
+    void load(long id, Class dataType);
 
     /**
      * Put long.
@@ -46,7 +44,7 @@ public  interface  Md2DataStore<T extends Md2Entity > {
      * @param md2Entity the md 2 entity
      * @return the long
      */
-  long put(T md2Entity);
+    void put(Md2Entity md2Entity);
 
     /**
      * Put entity.
@@ -55,13 +53,16 @@ public  interface  Md2DataStore<T extends Md2Entity > {
      * @param md2Entity the md 2 entity
      * @return the long
      */
-     long put(long id, T md2Entity);
+    void put(long id, Md2Entity md2Entity);
 
     /**
      * Remove entity.
      *
      * @param id        the id
      * @param md2Entity the md 2 entity
+     */
+    void remove(long id, Class md2Entity);
+}
      */
     void remove(long id, T md2Entity);
 }

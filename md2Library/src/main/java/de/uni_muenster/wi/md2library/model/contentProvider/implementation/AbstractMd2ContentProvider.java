@@ -1,6 +1,5 @@
 package de.uni_muenster.wi.md2library.model.contentProvider.implementation;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -183,7 +182,8 @@ public abstract class AbstractMd2ContentProvider implements Md2ContentProvider {
         }
 
         // case: entity has no id
-        long id = md2DataStore.getInternalId(this.content);
+       // long id = md2DataStore.getInternalId(this.content);
+        long id = -1;
         if (id == -1) {
             existsInDataStore = false;
             internalId = -1;
@@ -202,7 +202,8 @@ public abstract class AbstractMd2ContentProvider implements Md2ContentProvider {
         if (existsInDataStore)
             md2DataStore.put(internalId, this.content);
         else {
-            long newId = md2DataStore.put(this.content);
+            long newId = 0;
+            //long newId = md2DataStore.put(this.content);
             if (newId > 0) {
                 this.existsInDataStore = true;
                 this.internalId = newId;
@@ -217,12 +218,11 @@ public abstract class AbstractMd2ContentProvider implements Md2ContentProvider {
         if (content == null || md2DataStore == null)
             return;
 
-        md2DataStore.remove(internalId, content);
+        md2DataStore.remove(internalId, content.getClass());
         internalId = -1;
     }
-
-    public void newEntity(){
-        //konkrete Implementierung im Generator
+}
+//konkrete Implementierung im Generator
     }
 
 

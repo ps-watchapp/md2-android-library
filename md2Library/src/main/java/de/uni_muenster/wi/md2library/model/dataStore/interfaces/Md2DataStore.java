@@ -63,6 +63,3 @@ public interface Md2DataStore {
      */
     void remove(long id, Class md2Entity);
 }
-     */
-    void remove(long id, T md2Entity);
-}

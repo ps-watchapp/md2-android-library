@@ -1,5 +1,6 @@
 package de.uni_muenster.wi.md2library.controller.eventhandler.implementation;
 
+import android.support.wearable.view.drawer.WearableActionDrawer;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -16,7 +17,7 @@ import de.uni_muenster.wi.md2library.controller.action.interfaces.Md2Action;
  * @version 1.0
  * @since 1.0
  */
-public class Md2OnClickHandler extends AbstractMd2WidgetEventHandler implements View.OnClickListener, View.OnTouchListener {
+public class Md2OnClickHandler extends AbstractMd2WidgetEventHandler implements View.OnClickListener, View.OnTouchListener{
 
     /**
      * Instantiates a new Md 2 on click handler.

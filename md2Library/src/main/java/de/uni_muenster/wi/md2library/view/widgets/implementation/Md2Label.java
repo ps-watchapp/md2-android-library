@@ -101,11 +101,12 @@ public class Md2Label extends TextView implements Md2Content {
     private Md2Label(Md2Label label) {
         super(label.getContext());
         this.setWidgetId(label.getWidgetId());
+        this.setValue(label.getValue());
         this.setOnChangedHandler(label.getOnChangedHandler());
         this.setOnClickHandler(label.getOnClickHandler());
         this.setOnLongClickHandler(label.getOnLongClickHandler());
         this.setDisabled(label.isDisabled());
-        this.setValue(label.getValue());
+
     }
 
     /**

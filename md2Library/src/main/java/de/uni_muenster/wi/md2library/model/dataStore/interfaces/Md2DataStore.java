@@ -11,7 +11,7 @@ import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Entity;
  * @version 1.0
  * @since 1.0
  */
-public interface Md2DataStore {
+public interface Md2DataStore<T extends Md2Entity> {
 
     /**
      * Execute query in data store.

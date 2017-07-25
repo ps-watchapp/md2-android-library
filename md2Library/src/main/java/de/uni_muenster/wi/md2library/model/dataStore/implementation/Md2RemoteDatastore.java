@@ -17,31 +17,79 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.uni_muenster.wi.md2library.model.dataStore.Filter;
+import de.uni_muenster.wi.md2library.model.dataStore.SqlUtils;
 import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Entity;
 
 /**
  * Created by Felix on 22.05.2017.
  */
 
-public class Md2RemoteStore extends AbstractMd2DataStore {
+public class Md2RemoteStore<T extends Md2Entity> extends AbstractMd2DataStore {
     private URL baseURL;
+    final Class<T> typeParameterClass;
 
 
 
 
-    public Md2RemoteStore(URL uRL){
+    public Md2RemoteStore(URL uRL,Class<T> typeParameterClass){
         this.baseURL=uRL;
+        this.typeParameterClass = typeParameterClass;
 
     }
 
     /**
      * Execute query in data store.
      *
-     * @param query the query
+     * @param filter the query
      * @return the md 2 entity
      */
     @Override
-    public void query(String query) {
+    public void query(Filter filter) {
+        String url = baseURL+"/"+typeParameterClass.getSimpleName().toLowerCase()+"?filter="+ SqlUtils.filterToSqlStatement(filter);
+        //String url = "http://watchapp.uni-muenster.de:8080/citizenApp.backend/service/address/1";
+        System.out.println("DO Query:");
+        System.out.println(url);
+// Request a string response
+        JSONArray jsonArray = new JSONArray();
+        JsonArrayRequest arrayRequest = new JsonArrayRequest(Request.Method.GET,url,jsonArray,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        // Result handling
+                        System.out.println("Returned LOAD:"+response.toString());
+                        if (null == response.toString()) {
+                            //return null;
+                        }else {
+                            Gson gson = new Gson();
+                            System.out.println(response.toString());
+                            List<T> mD2List = new ArrayList<T>();
+                            for (int i = 0; i < response.length(); i++) {
+                                try{
+                                mD2List.add(i,gson.fromJson(response.getString(i), typeParameterClass));
+                                }catch (Exception e){
+
+                                }
+                            }
+                            //Md2Entity md2Object = (Md2Entity) new Gson().fromJson(response.toString(),dataType);
+                            System.out.println(mD2List.toString());
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Error handling
+                System.out.println("Something went wrong!");
+                System.out.println(error.getMessage());
+                error.printStackTrace();
+
+            }
+
+        });
+        VolleyQueue.getInstance(null).getRequestQueue().add(arrayRequest);
 
     }
     /**

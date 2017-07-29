@@ -4,6 +4,7 @@ import de.uni_muenster.wi.md2library.controller.action.implementation.customCode
 import de.uni_muenster.wi.md2library.exception.Md2WidgetNotCreatedException;
 import de.uni_muenster.wi.md2library.model.contentProvider.implementation.Md2ContentProviderRegistry;
 import de.uni_muenster.wi.md2library.model.contentProvider.interfaces.Md2ContentProvider;
+import de.uni_muenster.wi.md2library.model.type.implementation.Md2Integer;
 import de.uni_muenster.wi.md2library.model.type.implementation.Md2String;
 import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Type;
 import de.uni_muenster.wi.md2library.view.management.implementation.Md2ViewManager;
@@ -51,8 +52,9 @@ public class Md2SyncTask implements Md2CustomCodeTask {
             }
 
             Md2Content content = (Md2Content) widget;
-            Md2String value = (Md2String) Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider).getValue(attribute);
+            Md2Type value = Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider).getValue(attribute);
             content.setValue(value);
+
         } else {
             Md2ContentProvider cp = Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider);
             Md2Type value = Md2ViewManager.getInstance().getWidgetValue(widgetId);

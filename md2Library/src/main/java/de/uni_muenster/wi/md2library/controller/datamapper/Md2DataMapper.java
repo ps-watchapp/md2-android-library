@@ -6,6 +6,8 @@ import de.uni_muenster.wi.md2library.controller.action.implementation.Md2Synchro
 import de.uni_muenster.wi.md2library.controller.action.implementation.Md2SynchronizeWidgetDataMappingAction;
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnAttributeChangedHandler;
 import de.uni_muenster.wi.md2library.model.contentProvider.interfaces.Md2ContentProvider;
+import de.uni_muenster.wi.md2library.model.type.implementation.Md2Integer;
+import de.uni_muenster.wi.md2library.model.type.implementation.Md2String;
 import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Type;
 import de.uni_muenster.wi.md2library.view.widgets.interfaces.Md2Content;
 
@@ -73,7 +75,9 @@ public class Md2DataMapper {
 
         // first sync
         Md2Type val = contentProvider.getValue(attribute);
+
         widget.setValue(val);
+
     }
 
     /**

@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnChangedHandler;
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnClickHandler;
+import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnLongClickHandler;
 import de.uni_muenster.wi.md2library.model.type.implementation.Md2String;
 import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Type;
 import de.uni_muenster.wi.md2library.view.widgets.interfaces.Md2Content;
@@ -35,6 +36,12 @@ public class Md2Label extends TextView implements Md2Content {
      * The On click handler.
      */
     protected Md2OnClickHandler onClickHandler;
+
+    /**
+     * The On click handler.
+     */
+    protected Md2OnLongClickHandler onLongClickHandler;
+
     /**
      * The On changed handler.
      */
@@ -94,10 +101,12 @@ public class Md2Label extends TextView implements Md2Content {
     private Md2Label(Md2Label label) {
         super(label.getContext());
         this.setWidgetId(label.getWidgetId());
+        this.setValue(label.getValue());
         this.setOnChangedHandler(label.getOnChangedHandler());
         this.setOnClickHandler(label.getOnClickHandler());
+        this.setOnLongClickHandler(label.getOnLongClickHandler());
         this.setDisabled(label.isDisabled());
-        this.setValue(label.getValue());
+
     }
 
     /**
@@ -106,6 +115,7 @@ public class Md2Label extends TextView implements Md2Content {
     protected void init() {
         this.setOnChangedHandler(new Md2OnChangedHandler());
         this.setOnClickHandler(new Md2OnClickHandler());
+        this.setOnLongClickHandler(new Md2OnLongClickHandler());
         this.widgetId = -1;
     }
 
@@ -121,7 +131,7 @@ public class Md2Label extends TextView implements Md2Content {
             return;
         }
 
-        if (!this.getText().equals(value.toString())) {
+        if (!(this.getText() ==(value.toString()))) {
             super.setText(value.toString());
         }
     }
@@ -135,6 +145,18 @@ public class Md2Label extends TextView implements Md2Content {
     public void setOnClickHandler(Md2OnClickHandler onClickHandler) {
         this.onClickHandler = onClickHandler;
         this.setOnClickListener(onClickHandler);
+    }
+
+    @Override
+    public Md2OnLongClickHandler getOnLongClickHandler() {
+        return this.onLongClickHandler;
+    }
+
+    @Override
+    public boolean setOnLongClickHandler(Md2OnLongClickHandler onLongClickHandler) {
+        this.onLongClickHandler = onLongClickHandler;
+        this.setOnLongClickListener(onLongClickHandler);
+        return true;
     }
 
     @Override

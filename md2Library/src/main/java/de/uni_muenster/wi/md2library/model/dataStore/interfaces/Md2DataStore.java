@@ -13,7 +13,7 @@ import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Entity;
  * @version 1.0
  * @since 1.0
  */
-public interface Md2DataStore {
+public  interface  Md2DataStore<T extends Md2Entity > {
 
     /**
      * Execute query in data store.
@@ -29,7 +29,7 @@ public interface Md2DataStore {
      * @param entity the entity
      * @return the internal id
      */
-    long getInternalId(Md2Entity entity);
+      long  getInternalId(T entity);
 
     /**
      * Load entity.
@@ -46,7 +46,7 @@ public interface Md2DataStore {
      * @param md2Entity the md 2 entity
      * @return the long
      */
-    long put(Md2Entity md2Entity);
+  long put(T md2Entity);
 
     /**
      * Put entity.
@@ -55,7 +55,7 @@ public interface Md2DataStore {
      * @param md2Entity the md 2 entity
      * @return the long
      */
-    long put(long id, Md2Entity md2Entity);
+     long put(long id, T md2Entity);
 
     /**
      * Remove entity.
@@ -63,5 +63,5 @@ public interface Md2DataStore {
      * @param id        the id
      * @param md2Entity the md 2 entity
      */
-    void remove(long id, Md2Entity md2Entity);
+    void remove(long id, T md2Entity);
 }

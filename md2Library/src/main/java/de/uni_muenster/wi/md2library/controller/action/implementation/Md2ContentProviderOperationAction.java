@@ -1,6 +1,7 @@
 package de.uni_muenster.wi.md2library.controller.action.implementation;
 
 import de.uni_muenster.wi.md2library.model.contentProvider.implementation.Md2ContentProviderRegistry;
+import de.uni_muenster.wi.md2library.model.contentProvider.interfaces.IContentProvider;
 import de.uni_muenster.wi.md2library.model.contentProvider.interfaces.Md2ContentProvider;
 
 /**
@@ -39,7 +40,14 @@ public class Md2ContentProviderOperationAction extends AbstractMd2Action {
 
     @Override
     public void execute() {
-        Md2ContentProvider cp = Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider);
+        IContentProvider cp=null;
+if(Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider)!=null)
+        {
+          cp = Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider);
+        }
+        else if(Md2ContentProviderRegistry.getInstance().getContentMultiProvider(contentProvider)!=null){
+ cp=  Md2ContentProviderRegistry.getInstance().getContentMultiProvider(contentProvider);
+        }
         switch (operation) {
             case CREATE_OR_UPDATE:
                 cp.save();

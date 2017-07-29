@@ -16,6 +16,14 @@ public class Md2ButtonOnSwipeHandler extends AbstractMd2OnSwipeHandler implement
     private Md2OnLeftSwipeHandler lsh;
     private Md2OnRightSwipeHandler rsh;
 
+    public Md2OnLeftSwipeHandler getLeftSwipeHandler(){
+        return lsh;
+    }
+
+    public Md2OnRightSwipeHandler getRightSwipeHandler(){
+        return rsh;
+    }
+
     /**
      * Instantiates a new Md 2 on left swipe handler.
      *

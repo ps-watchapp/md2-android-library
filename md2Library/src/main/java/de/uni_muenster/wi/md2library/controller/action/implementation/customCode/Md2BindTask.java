@@ -93,6 +93,9 @@ public class Md2BindTask implements Md2CustomCodeTask {
                 case ON_CLICK:
                     widget.getOnClickHandler().registerAction(action);
                     break;
+                case ON_LONG_CLICK:
+                    widget.getOnLongClickHandler().registerAction(action);
+                    break;
                 //added support for left and right swipe
                 case ON_RIGHT_SWIPE:
                     if(widget instanceof Md2Button){

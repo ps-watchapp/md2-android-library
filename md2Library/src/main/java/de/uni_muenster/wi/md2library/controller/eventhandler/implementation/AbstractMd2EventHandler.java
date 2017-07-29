@@ -67,6 +67,7 @@ public abstract class AbstractMd2EventHandler implements Md2EventHandler {
         actions.add(action);
     }
 
+
     /**
      * Remove action.
      *

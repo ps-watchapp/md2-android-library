@@ -1,5 +1,6 @@
 package de.uni_muenster.wi.md2library.model.contentProvider.implementation;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -219,4 +220,24 @@ public abstract class AbstractMd2ContentProvider implements Md2ContentProvider {
         md2DataStore.remove(internalId, content);
         internalId = -1;
     }
+
+    public void newEntity(){
+        //konkrete Implementierung im Generator
+    }
+
+
+    public void notfiyOnChangeHandlers(){
+        Collection<Md2OnAttributeChangedHandler> coll = attributeChangedEventHandlers.values();
+        for(Md2OnAttributeChangedHandler c : coll){
+            c.execute();
+        }
+    }
+
+    public void notifyChangeHandler(String name){
+        Md2OnAttributeChangedHandler handler = this.attributeChangedEventHandlers.get(name);
+        if (handler != null) {
+            handler.onChange(name);
+        }
+    }
+
 }

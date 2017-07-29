@@ -2,6 +2,7 @@ package de.uni_muenster.wi.md2library.view.widgets.interfaces;
 
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnChangedHandler;
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnClickHandler;
+import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnLongClickHandler;
 
 /**
  * Represents ViewGUIElements in MD2-DSL.
@@ -55,6 +56,21 @@ public interface Md2Widget {
      * @param onClickHandler the on click handler
      */
     void setOnClickHandler(Md2OnClickHandler onClickHandler);
+
+
+    /**
+     * Gets on click handler.
+     *
+     * @return the on click handler
+     */
+    Md2OnLongClickHandler getOnLongClickHandler();
+
+    /**
+     * Sets on click handler.
+     *
+     * @param onLongClickHandler the on click handler
+     */
+    boolean setOnLongClickHandler(Md2OnLongClickHandler onLongClickHandler);
 
     /**
      * Gets on changed handler.

@@ -6,12 +6,13 @@ package de.uni_muenster.wi.md2library.controller.eventhandler.implementation;
  * <p/>
  * Created on 24/08/2015
  *
- * @author Fabian Wrede
- * @version 1.0
+ * @author Fabian Wrede, Alexander Johnsdorf, Fernando Koch
+ * @version 1.5
  * @since 1.0
  */
 public enum Md2WidgetEventType {
     ON_CLICK,
+    ON_LONG_CLICK,
     ON_CHANGE,
     ON_LEFT_SWIPE,
     ON_RIGHT_SWIPE

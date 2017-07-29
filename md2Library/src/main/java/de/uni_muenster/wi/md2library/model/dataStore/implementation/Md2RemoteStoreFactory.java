@@ -10,6 +10,6 @@ public class Md2RemoteStoreFactory extends AbstractMd2DataStoreFactory implement
 
     @Override
     public Md2DataStore getDataStore(String uri, String entity) {
-        return null;
+        return new Md2RemoteDatastore( uri);
     }
 }

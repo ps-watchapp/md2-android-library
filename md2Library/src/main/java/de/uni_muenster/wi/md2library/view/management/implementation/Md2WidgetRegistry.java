@@ -73,6 +73,7 @@ public class Md2WidgetRegistry {
             return;
 
         widget.setOnClickHandler(savedWidget.getOnClickHandler());
+        widget.setOnLongClickHandler(savedWidget.getOnLongClickHandler());
         widget.setOnChangedHandler(savedWidget.getOnChangedHandler());
         if(savedWidget instanceof Md2Button){
             Md2Button b = (Md2Button) widget;

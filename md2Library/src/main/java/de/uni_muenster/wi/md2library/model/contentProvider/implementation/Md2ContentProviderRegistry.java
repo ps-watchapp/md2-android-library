@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.uni_muenster.wi.md2library.model.contentProvider.interfaces.Md2ContentProvider;
+import de.uni_muenster.wi.md2library.model.contentProvider.interfaces.Md2MultiContentProvider;
 
 /**
  * Content provider registry is used to store references to concrete content providers
@@ -20,9 +21,11 @@ public class Md2ContentProviderRegistry {
      * The Content providers.
      */
     Map<String, Md2ContentProvider> contentProviders;
+    Map<String, Md2MultiContentProvider> multiContentProvider;
 
     private Md2ContentProviderRegistry() {
         contentProviders = new HashMap<>();
+        multiContentProvider = new HashMap<>();
     }
 
     /**
@@ -53,7 +56,24 @@ public class Md2ContentProviderRegistry {
      * @param key the key
      * @return the content provider
      */
+    public Md2MultiContentProvider getContentMultiProvider(String key) {
+        return multiContentProvider.get(key);
+    }
+
+
+
+    public void addMultiContentProvider(String key, Md2MultiContentProvider contentProvider) {
+        multiContentProvider.put(key, contentProvider);
+    }
+
+    /**
+     * Gets content provider.
+     *
+     * @param key the key
+     * @return the content provider
+     */
     public Md2ContentProvider getContentProvider(String key) {
         return contentProviders.get(key);
     }
+
 }

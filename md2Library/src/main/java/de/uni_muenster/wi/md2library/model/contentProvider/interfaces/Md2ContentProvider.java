@@ -14,7 +14,7 @@ import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Type;
  * @version 1.0
  * @since 1.0
  */
-public interface Md2ContentProvider {
+public interface Md2ContentProvider extends IContentProvider {
     /**
      * Gets key.
      *

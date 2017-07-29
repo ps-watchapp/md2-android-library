@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnChangedHandler;
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnClickHandler;
+import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnLongClickHandler;
 import de.uni_muenster.wi.md2library.view.widgets.interfaces.Md2Container;
 import de.uni_muenster.wi.md2library.view.widgets.interfaces.Md2Widget;
 
@@ -89,6 +90,7 @@ public class Md2FlowLayoutPane extends LinearLayout implements Md2Container {
     protected void init() {
         this.setOnChangedHandler(new Md2OnChangedHandler());
         this.setOnClickHandler(new Md2OnClickHandler());
+        this.setOnLongClickHandler(new Md2OnLongClickHandler());
         this.widgetId = -1;
     }
 
@@ -121,6 +123,17 @@ public class Md2FlowLayoutPane extends LinearLayout implements Md2Container {
     public void setOnClickHandler(Md2OnClickHandler onClickHandler) {
 
     }
+
+    @Override
+    public Md2OnLongClickHandler getOnLongClickHandler() {
+        return null;
+    }
+
+    @Override
+    public boolean setOnLongClickHandler(Md2OnLongClickHandler onLongClickHandler) {
+    return true;
+    }
+
 
     @Override
     public Md2OnChangedHandler getOnChangedHandler() {

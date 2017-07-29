@@ -47,7 +47,7 @@ public class Md2String extends AbstractMd2DataType {
         if (!super.equals(value))
             return false;
 
-        if (!(value instanceof Md2String)) {
+        if (!(value instanceof Md2String) ||this.getPlatformValue()==null) {
             return false;
         }
 

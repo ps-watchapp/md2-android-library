@@ -6,6 +6,7 @@ import android.widget.EditText;
 
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnChangedHandler;
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnClickHandler;
+import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnLongClickHandler;
 import de.uni_muenster.wi.md2library.model.type.implementation.Md2String;
 import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Type;
 import de.uni_muenster.wi.md2library.view.widgets.interfaces.Md2Content;
@@ -30,6 +31,12 @@ public class Md2TextInput extends EditText implements Md2Content {
      * The On click handler.
      */
     protected Md2OnClickHandler onClickHandler;
+
+
+    /**
+     * The On long click handler.
+     */
+    protected Md2OnLongClickHandler onLongClickHandler;
 
     /**
      * The On changed handler.
@@ -119,11 +126,12 @@ public class Md2TextInput extends EditText implements Md2Content {
         }
 
         // set cursor in correct position --> otherwise always in the beginning
-        int cursorPosition = super.getSelectionEnd();
+        //int cursorPosition = super.getSelectionEnd();
+        //Auskommentiert: Andernfalls setSpan-Fehlermeldungen beim Setzen des Values
 
         if (!super.getText().toString().equals(value.toString())) {
             super.setText(value.toString());
-            super.setSelection(cursorPosition);
+            //super.setSelection(cursorPosition);
         }
     }
 
@@ -136,6 +144,18 @@ public class Md2TextInput extends EditText implements Md2Content {
     public void setOnClickHandler(Md2OnClickHandler onClickHandler) {
         this.onClickHandler = onClickHandler;
         this.setOnClickListener(onClickHandler);
+    }
+
+    @Override
+    public Md2OnLongClickHandler getOnLongClickHandler() {
+        return this.onLongClickHandler;
+    }
+
+    @Override
+    public boolean setOnLongClickHandler(Md2OnLongClickHandler onLongClickHandler) {
+        this.onLongClickHandler = onLongClickHandler;
+        this.setOnLongClickListener(onLongClickHandler);
+        return true;
     }
 
     @Override

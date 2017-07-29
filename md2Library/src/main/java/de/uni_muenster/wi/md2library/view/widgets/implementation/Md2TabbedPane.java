@@ -2,6 +2,7 @@ package de.uni_muenster.wi.md2library.view.widgets.implementation;
 
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnChangedHandler;
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnClickHandler;
+import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnLongClickHandler;
 import de.uni_muenster.wi.md2library.view.widgets.interfaces.Md2Container;
 import de.uni_muenster.wi.md2library.view.widgets.interfaces.Md2Widget;
 
@@ -53,6 +54,14 @@ public class Md2TabbedPane implements Md2Container {
     public void setOnClickHandler(Md2OnClickHandler onClickHandler) {
 
     }
+
+    @Override
+    public Md2OnLongClickHandler getOnLongClickHandler() {
+        return null;
+    }
+
+    @Override
+    public boolean setOnLongClickHandler(Md2OnLongClickHandler onLongClickHandler) { return true; }
 
     @Override
     public Md2OnChangedHandler getOnChangedHandler() {

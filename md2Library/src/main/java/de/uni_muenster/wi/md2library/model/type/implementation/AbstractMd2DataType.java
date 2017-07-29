@@ -67,6 +67,10 @@ public abstract class AbstractMd2DataType extends AbstractMd2Type implements Md2
     }
 
     public java.lang.String toString() {
-        return this.getPlatformValue().toString();
+        if(platformValue != null) {
+            return this.getPlatformValue().toString();
+        } else {
+            return "";
+        }
     }
 }

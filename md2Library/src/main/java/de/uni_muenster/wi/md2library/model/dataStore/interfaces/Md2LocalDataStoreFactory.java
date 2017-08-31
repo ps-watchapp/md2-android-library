@@ -13,5 +13,5 @@ public interface Md2LocalDataStoreFactory extends Md2DataStoreFactory {
      * @param entity the entity
      * @return the data store
      */
-    <T extends Md2Entity> Md2LocalStore<T> getDataStore(String entity);
+    <T extends Md2Entity> Md2DataStore getDataStore(String entity);
 }

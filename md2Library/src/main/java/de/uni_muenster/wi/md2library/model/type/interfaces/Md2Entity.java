@@ -1,6 +1,8 @@
 package de.uni_muenster.wi.md2library.model.type.interfaces;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
+
 
 /**
  * {@inheritDoc}
@@ -58,4 +60,18 @@ public interface Md2Entity extends Md2Type {
      * @return the attributes
      */
     HashMap<String, Md2Type> getAttributes();
+
+    /**
+     * Sets the timestamp.
+     *
+     * @param timestamp the current timestamp
+     */
+    void setModifiedDate(Timestamp timestamp);
+
+    /**
+     * Get the entity timestamp
+     *
+     * @return the timestamp
+     */
+    Timestamp getModifiedDate();
 }

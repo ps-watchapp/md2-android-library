@@ -76,4 +76,20 @@ public class Md2ContentProviderRegistry {
         return contentProviders.get(key);
     }
 
+
+    public Map<String, Md2ContentProvider> getContentProviders() {
+        return contentProviders;
+    }
+
+    public void setContentProviders(Map<String, Md2ContentProvider> contentProviders) {
+        this.contentProviders = contentProviders;
+    }
+
+    public Map<String, Md2MultiContentProvider> getMultiContentProvider() {
+        return multiContentProvider;
+    }
+
+    public void setMultiContentProvider(Map<String, Md2MultiContentProvider> multiContentProvider) {
+        this.multiContentProvider = multiContentProvider;
+    }
 }

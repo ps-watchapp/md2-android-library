@@ -1,11 +1,17 @@
 package de.uni_muenster.wi.md2library.model.contentProvider.implementation;
 
+import com.google.common.base.Predicates;
+
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import de.uni_muenster.wi.md2library.controller.eventhandler.implementation.Md2OnAttributeChangedHandler;
 import de.uni_muenster.wi.md2library.model.contentProvider.interfaces.Md2ContentProvider;
+import de.uni_muenster.wi.md2library.model.dataStore.Filter;
+import de.uni_muenster.wi.md2library.model.dataStore.implementation.AbstractMd2OrmLiteDatastore;
 import de.uni_muenster.wi.md2library.model.dataStore.interfaces.Md2DataStore;
 import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Entity;
 import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Type;
@@ -22,11 +28,17 @@ import de.uni_muenster.wi.md2library.model.type.interfaces.Md2Type;
  * @since 1.0
  */
 public abstract class AbstractMd2ContentProvider implements Md2ContentProvider {
-
+    protected Filter filter;
     /**
      * The Key.
      */
     protected String key;
+    /**
+     * The SyncTimestamp
+     *
+     */
+    protected Timestamp syncTimestamp;
+
     /**
      * The Content.
      */
@@ -69,6 +81,7 @@ public abstract class AbstractMd2ContentProvider implements Md2ContentProvider {
         attributeChangedEventHandlers = new HashMap<>();
         //observedAttributes = new HashMap<>();
         this.md2DataStore = md2DataStore;
+        md2DataStore.setContentProvider(this);
         this.existsInDataStore = false;
         internalId = -1;
         this.load();
@@ -111,7 +124,48 @@ public abstract class AbstractMd2ContentProvider implements Md2ContentProvider {
             this.load();
         }
     }
+    @Override
+    public void overwriteContent(List<Md2Entity> content){
+        if ((content != null)&&(content.isEmpty()==false)) {
+            this.content = content.get(0);
+        }
+        callAllHandlers();
+    }
 
+    public void updateContent(List<Md2Entity> updates) {
+
+        if ((updates != null)&&(updates.isEmpty() == false)) {
+
+            for (Md2Entity entity1 : updates) {
+                Timestamp updateTimestamp = entity1.getModifiedDate();
+
+                if(updateTimestamp.after(content.getModifiedDate())){
+                    this.content = entity1;
+                }
+            }
+        }
+
+
+    }
+    public void purgeContent(List<Md2Entity> deleted){
+        if ((deleted != null) && (deleted.isEmpty() == false)) {
+
+            for(Md2Entity entity2 : deleted) {
+
+                Timestamp contentTimestamp = entity2.getModifiedDate();
+
+                if (contentTimestamp.after(syncTimestamp)) {
+                    this.content = null;
+                }
+            }
+        }
+    }
+    private void callAllHandlers(){
+        for (String key: this.attributeChangedEventHandlers.keySet()){
+            Md2OnAttributeChangedHandler handler = getOnAttributeChangedHandler(key);
+            handler.onChange(key);
+        }
+    }
     @Override
     public void registerAttributeOnChangeHandler(String attribute, Md2OnAttributeChangedHandler onAttributeChangedHandler) {
         //observedAttributes.put(attribute, this.getValue(attribute));
@@ -155,70 +209,63 @@ public abstract class AbstractMd2ContentProvider implements Md2ContentProvider {
 
     @Override
     public void reset() {
-        if (content == null)
-            return;
-
-        Set<String> keys = this.content.getAttributes().keySet();
-
-        for (String key : keys) {
-            Md2Type oldValue = this.backup.get(key);
-            if (oldValue == null) {
-                this.content.getAttributes().remove(key);
-            } else {
-                this.setValue(key, oldValue);
-            }
-        }
+        newEntity();
     }
 
     @Override
     public void load() {
-        if (content == null | md2DataStore == null)
-            return;
-
-        // case: entity has id
-        if (this.content.getId() > 0) {
-            existsInDataStore = true;
-            internalId = this.content.getId();
-            return;
-        }
-
-        // case: entity has no id
-        long id = md2DataStore.getInternalId(this.content);
-        if (id == -1) {
-            existsInDataStore = false;
-            internalId = -1;
-        } else {
-            existsInDataStore = true;
-            internalId = id;
-            this.content.setId(id);
-        }
+//        if (content == null | md2DataStore == null)
+//            return;
+//
+//        // case: entity has id
+//        if (this.content.getId() > 0) {
+//            existsInDataStore = true;
+//            internalId = this.content.getId();
+//            return;
+//        }
+//
+//        // case: entity has no id
+//       // long id = md2DataStore.getInternalId(this.content);
+//        long id = -1;
+//        if (id == -1) {
+//            existsInDataStore = false;
+//            internalId = -1;
+//        } else {
+//            existsInDataStore = true;
+//            internalId = id;
+//            this.content.setId(id);
+//
+//        }
+        this.syncTimestamp = new Timestamp(System.currentTimeMillis());
+        md2DataStore.query(this.filter);
     }
 
     @Override
     public void save() {
         if (content == null || md2DataStore == null)
             return;
-
-        if (existsInDataStore)
-            md2DataStore.put(internalId, this.content);
+        if (content.getId()>0)
+            md2DataStore.put(content.getId(), this.content);
         else {
-            long newId = md2DataStore.put(this.content);
-            if (newId > 0) {
-                this.existsInDataStore = true;
-                this.internalId = newId;
-            }
+            md2DataStore.put(this.content);
         }
-
         this.backup = (Md2Entity) content.clone();
     }
+    @Override
+    public void update(){
+        Timestamp oldStamp = syncTimestamp;
+        this.syncTimestamp = new Timestamp(System.currentTimeMillis());
+//if(!(this.md2DataStore instanceof AbstractMd2OrmLiteDatastore)){
+        md2DataStore.query(this.filter, oldStamp);
+    //}
 
+    }
     @Override
     public void remove() {
-        if (content == null || md2DataStore == null)
-            return;
+        if (content == null || md2DataStore == null) return;
 
-        md2DataStore.remove(internalId, content);
-        internalId = -1;
+        md2DataStore.remove(internalId, content.getClass());
+
     }
 
     public void newEntity(){
@@ -238,6 +285,11 @@ public abstract class AbstractMd2ContentProvider implements Md2ContentProvider {
         if (handler != null) {
             handler.onChange(name);
         }
+    }
+
+    @Override
+    public void resetLocal(){
+        newEntity();
     }
 
 }

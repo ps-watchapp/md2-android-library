@@ -105,25 +105,10 @@ public abstract class AbstractMd2Entity extends AbstractMd2Type implements Md2En
         }
         return result.append(")").toString();
     }
-
     @Override
-    public boolean equals(Md2Type value) {
-        if (value == null)
-            return false;
-
-        if (!(value instanceof Md2Entity))
-            return false;
-
-        Md2Entity md2EntityValue = (Md2Entity) value;
-
-        for (Map.Entry<String, Md2Type> entry : this.attributes.entrySet()) {
-            String key = entry.getKey();
-            Md2Type val = entry.getValue();
-
-            if (!val.equals(md2EntityValue.get(key)))
-                return false;
-        }
-
-        return true;
+    public boolean equals(Md2Type md2Type){
+        if (md2Type instanceof Md2Entity){
+            return this.equals((Object)md2Type);
+        }else return false;
     }
 }

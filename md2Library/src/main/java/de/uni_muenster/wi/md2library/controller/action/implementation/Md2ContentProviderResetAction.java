@@ -1,6 +1,7 @@
 package de.uni_muenster.wi.md2library.controller.action.implementation;
 
 import de.uni_muenster.wi.md2library.model.contentProvider.implementation.Md2ContentProviderRegistry;
+import de.uni_muenster.wi.md2library.model.contentProvider.interfaces.IContentProvider;
 import de.uni_muenster.wi.md2library.model.contentProvider.interfaces.Md2ContentProvider;
 
 /**
@@ -31,7 +32,10 @@ public class Md2ContentProviderResetAction extends AbstractMd2Action {
 
     @Override
     public void execute() {
-        Md2ContentProvider cp = Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider);
-        cp.reset();
+        if(Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider) != null) {
+            Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider).reset();
+        } else if (Md2ContentProviderRegistry.getInstance().getContentMultiProvider(contentProvider) != null){
+            Md2ContentProviderRegistry.getInstance().getContentMultiProvider(contentProvider).reset();
+        }
     }
 }

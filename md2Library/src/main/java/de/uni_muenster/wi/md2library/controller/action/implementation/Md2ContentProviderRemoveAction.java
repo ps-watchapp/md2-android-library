@@ -3,6 +3,7 @@ package de.uni_muenster.wi.md2library.controller.action.implementation;
 import de.uni_muenster.wi.md2library.model.contentProvider.implementation.AbstractMd2MultiContentProvider;
 import de.uni_muenster.wi.md2library.model.contentProvider.implementation.Md2ContentProviderRegistry;
 import de.uni_muenster.wi.md2library.model.contentProvider.interfaces.Md2ContentProvider;
+import de.uni_muenster.wi.md2library.model.dataStore.Filter;
 
 /**
  * Created by felix_000 on 07.05.2017.
@@ -11,7 +12,7 @@ import de.uni_muenster.wi.md2library.model.contentProvider.interfaces.Md2Content
 public class Md2ContentProviderRemoveAction {
 
     private String contentProvider;
-    private WhereCondition conditions;
+    private Filter conditions;
 
     public Md2ContentProviderRemoveAction(String contentProvider) {
         this.contentProvider=contentProvider;

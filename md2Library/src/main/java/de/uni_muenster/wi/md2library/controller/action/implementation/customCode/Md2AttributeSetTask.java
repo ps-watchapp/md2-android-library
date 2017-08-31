@@ -44,6 +44,10 @@ public class Md2AttributeSetTask implements Md2CustomCodeTask {
 
     @Override
     public void execute() throws Md2WidgetNotCreatedException {
-        Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider).setValue(attribute, value);
+        if(Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider) != null) {
+            Md2ContentProviderRegistry.getInstance().getContentProvider(contentProvider).setValue(attribute, value);
+        } else if (Md2ContentProviderRegistry.getInstance().getContentMultiProvider(contentProvider) != null){
+            Md2ContentProviderRegistry.getInstance().getContentMultiProvider(contentProvider).setValueForAll(attribute, value);
+        }
     }
 }

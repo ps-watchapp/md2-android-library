@@ -99,12 +99,12 @@ public class Md2Button extends android.widget.Button implements Md2Content {
     private Md2Button(Md2Button button) {
         super(button.getContext());
         this.setWidgetId(button.getWidgetId());
-        this.setValue(button.getValue());
         this.setOnChangedHandler(button.getOnChangedHandler());
         this.setOnClickHandler(button.getOnClickHandler());
         this.setOnSwipeHandler(button.getOnSwipeHandler());
         this.setOnLongClickHandler(button.getOnLongClickHandler());
         this.setDisabled(!button.isDisabled());
+		this.setValue(button.getValue());
     }
 
     /**
